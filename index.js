@@ -14,17 +14,9 @@ app.use(morgan('dev'))
 
 // routes
 
-app.get("/", (req, res) => {
-    res.send("<h1>Learn Express by vishal</h1>")
-})
+app.use("/api/v1/user", require("./routes/userRoutes"))
 
-app.post("/contect", (req, res) => {
-    const { name } = req.body
-    res.json({
-        success: true,
-        message: `Welcome ${name}`
-    })
-})
+app.use('/api/v1/user', require('./routes/userRoutes'))
 
 // port
 const PORT = 8000;
