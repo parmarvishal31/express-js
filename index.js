@@ -2,9 +2,12 @@
 const express = require('express')
 const colors = require('colors');
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
+const morgan = require('morgan');
+const connectdb = require('./config/db');
 // rest object means express feture copy in app variable
 const app = express()
+// mongodb connection
+connectdb();
 
 // middlelware
 
