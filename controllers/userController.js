@@ -1,3 +1,4 @@
+const test = require("../models/testModel")
 const User = require("../models/userModel")
 
 const getUser = (req, res) => {
@@ -30,6 +31,24 @@ const createUser = async (req, res) => {
         console.log(`Creating user error =${error}`);
     }
 
+
 }
 
-module.exports = { getUser, addUser, createUser }
+const testData = async (req, res) => {
+    try {
+        const testDt = req.body;
+        console.log(testDt);
+        const testData = await test.create({ name: testDt.name, number: testDt.number })
+        res.status(201).json({
+            message: "success",
+            testData
+        })
+    } catch (error) {
+        console.log(`creat test data error${error}`);
+
+    }
+
+
+}
+
+module.exports = { getUser, addUser, createUser, testData }
