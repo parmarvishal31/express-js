@@ -18,6 +18,31 @@ const getUsers = async (req, res) => {
     }
 }
 
+const getSingleUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        if (user) {
+            res.status(200).json({
+                success: true,
+                user
+            })
+        } else {
+            res.status(400).json({
+                success: false,
+                msg: "user not found",
+                error: error.message
+            })
+        }
+
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            msg: "get single user error",
+            error: error.message
+        })
+    }
+}
+
 const createUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -29,8 +54,6 @@ const createUser = async (req, res) => {
     } catch (error) {
         console.log(`Creating user error =${error}`);
     }
-
-
 }
 
 const testData = async (req, res) => {
@@ -46,8 +69,6 @@ const testData = async (req, res) => {
         console.log(`creat test data error${error}`);
 
     }
-
-
 }
 
-module.exports = { getUsers, createUser, testData }
+module.exports = { getUsers, createUser, testData, getSingleUser }

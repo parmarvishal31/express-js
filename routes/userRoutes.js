@@ -1,5 +1,5 @@
 const express = require('express')
-const { createUser, testData, getUsers } = require('../controllers/userController')
+const { createUser, testData, getUsers, getSingleUser } = require('../controllers/userController')
 
 const routers = express.Router()
 
@@ -10,7 +10,10 @@ routers.post('/create-user', createUser)
 
 // test route
 routers.post('/test', testData)
-
+// all user get
 routers.get("/get-users", getUsers)
+
+// single user get by id params
+routers.get('/get-user/:id', getSingleUser)
 
 module.exports = routers
