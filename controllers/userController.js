@@ -1,22 +1,21 @@
 const test = require("../models/testModel")
 const User = require("../models/userModel")
 
-const getUser = (req, res) => {
-    res.send({
-        success: true,
-        message: "wow very good"
-    })
-}
-
-const addUser = (req, res) => {
-
-    const { name } = req.body
-    res.json({
-        success: true,
-        message: `Welcome ${name}`
-    })
-    console.log(JSON.stringify(req.body));
-
+const getUsers = async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.status(200).json({
+            success: true,
+            totalUser: users.length,
+            users
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            msg: "get all users error",
+            error: error.message
+        })
+    }
 }
 
 const createUser = async (req, res) => {
@@ -51,4 +50,4 @@ const testData = async (req, res) => {
 
 }
 
-module.exports = { getUser, addUser, createUser, testData }
+module.exports = { getUsers, createUser, testData }
