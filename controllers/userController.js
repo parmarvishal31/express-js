@@ -56,6 +56,47 @@ const createUser = async (req, res) => {
     }
 }
 
+const updateUser = async (req, res) => {
+    const user = await User.findById(req.params.id);
+    // console.log(user);
+    if (user) {
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        if (req.body.password) {
+            user.password = req.body.password
+        }
+
+        const updateUser = await user.save()
+        res.status(201).json({
+            success: true,
+            updateUser
+        })
+    } else {
+        res.status(400).json({
+            success: false,
+            msg: "user not found"
+        })
+    }
+}
+
+// delete user
+
+const deleteUser = async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user) {
+        const deletedUser = await User.deleteOne({ _id: user._id });
+        res.status(200).json({
+            success: true,
+            deleteUser
+        })
+    } else {
+        res.status(404).json({
+            success: false,
+            msg: "user not found"
+        })
+    }
+}
+
 const testData = async (req, res) => {
     try {
         const testDt = req.body;
@@ -71,4 +112,4 @@ const testData = async (req, res) => {
     }
 }
 
-module.exports = { getUsers, createUser, testData, getSingleUser }
+module.exports = { getUsers, createUser, testData, getSingleUser, updateUser, deleteUser }

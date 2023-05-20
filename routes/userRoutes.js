@@ -1,5 +1,5 @@
 const express = require('express')
-const { createUser, testData, getUsers, getSingleUser } = require('../controllers/userController')
+const { createUser, testData, getUsers, getSingleUser, updateUser, deleteUser } = require('../controllers/userController')
 
 const routers = express.Router()
 
@@ -15,5 +15,11 @@ routers.get("/get-users", getUsers)
 
 // single user get by id params
 routers.get('/get-user/:id', getSingleUser)
+
+// update user
+routers.put('/update-user/:id', updateUser);
+
+// delete user 
+routers.delete('/delete-user/:id', deleteUser)
 
 module.exports = routers
